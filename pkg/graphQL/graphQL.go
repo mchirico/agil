@@ -101,6 +101,7 @@ func QueryGraphQL() Q {
 	httpClient := oauth2.NewClient(context.Background(), src)
 
 	client := githubv4.NewClient(httpClient)
+
 	err := client.Query(context.Background(), &q, nil)
 	if err != nil {
 		fmt.Printf("\nerror:%v\n", err)

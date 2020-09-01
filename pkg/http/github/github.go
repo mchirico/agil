@@ -16,11 +16,10 @@ type GithubData struct {
 	SecretValidated bool
 }
 
-func NewGithubData(secret string, fn  func([]byte)) GithubData {
+func NewGithubData(secret string, fn func([]byte)) GithubData {
 
-	return GithubData{secret,fn,false}
+	return GithubData{secret, fn, false}
 }
-
 
 func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 	event := req.Header.Get("x-github-event")
@@ -30,9 +29,6 @@ func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 	// Utility funcs
 	_fail := func(err error) {
 		fail(w, event, err)
-	}
-	_succeed := func() {
-		succeed(w, event)
 	}
 
 	// Ensure headers are all there
@@ -65,26 +61,13 @@ func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 		g.SecretValidated = true
 	}
 
-	g.Fn(body)
-
-	log.Printf("\nBEFORE PAYLOAD\n")
-	// Get payload
-	payload := GitHubPayload{}
-	if err := json.Unmarshal(body, &payload); err != nil {
-		_fail(fmt.Errorf("Could not deserialize payload"))
-		return
+	if g.SecretValidated {
+		g.Fn(body)
+	} else {
+		log.Printf("\nSECRET NOT VALID: will not run g.Fn(body)\n")
+		log.Printf("SECRET LENGTH: %v\n", len(g.Secret))
 	}
 
-	log.Printf("\nAFTER PAYLOAD\n")
-	// Do something with payload
-	//if err := fn(event, &payload, req); err == nil {
-	//	_succeed()
-	//} else {
-	//	_fail(err)
-	//}
-
-	// FIXME: take out
-	_succeed()
 }
 
 func validePayloadSignature(secret, signatureHeader string, body []byte) error {
@@ -108,13 +91,6 @@ func validePayloadSignature(secret, signatureHeader string, body []byte) error {
 	}
 
 	return nil
-}
-
-func succeed(w http.ResponseWriter, event string) {
-	render(w, PayloadPong{
-		Ok:    true,
-		Event: event,
-	})
 }
 
 func fail(w http.ResponseWriter, event string, err error) {
