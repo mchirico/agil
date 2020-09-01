@@ -32,7 +32,7 @@ func Static() {
 
 		loc, err := time.LoadLocation("America/New_York")
 		if err != nil {
-			w.Write([]byte(time.Now().Format(fmt.Sprintf("%v %v", loc, err))))
+			w.Write([]byte(fmt.Sprintf("%v %v", loc, err)))
 		}
 		w.Write([]byte(time.Now().In(loc).Format("01-02 15:04:05 pm")))
 
