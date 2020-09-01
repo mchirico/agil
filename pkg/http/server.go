@@ -55,10 +55,11 @@ func Static() {
 	})
 
 	var secret = os.Getenv("GITHUB_WEBHOOK_SECRET")
-	g := github.GithubData{secret, func(payload *github.GitHubPayload) {
+	g := github.NewGithubData(secret,func(body []byte) {
 		count += 1
+		log.Printf("OKAY AT END: github.NewGithubData")
+	})
 
-	}}
 	http.HandleFunc("/github", g.Process)
 
 	fs := http.FileServer(http.Dir("/static/dir"))

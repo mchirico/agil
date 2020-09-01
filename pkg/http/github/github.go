@@ -5,14 +5,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
 
 type GithubData struct {
-	Secret string
-	Fn     func(*GitHubPayload)
+	Secret          string
+	Fn              func([]byte)
+	SecretValidated bool
 }
+
+func NewGithubData(secret string, fn  func([]byte)) GithubData {
+
+	return GithubData{secret,fn,false}
+}
+
 
 func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 	event := req.Header.Get("x-github-event")
@@ -47,14 +55,19 @@ func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// CheckSecret payload (only when secret is provided)
+	g.SecretValidated = false
 	if g.Secret != "" {
 		if err := validePayloadSignature(g.Secret, signature, body); err != nil {
 			// Valied validation
 			_fail(err)
 			return
 		}
+		g.SecretValidated = true
 	}
 
+	g.Fn(body)
+
+	log.Printf("\nBEFORE PAYLOAD\n")
 	// Get payload
 	payload := GitHubPayload{}
 	if err := json.Unmarshal(body, &payload); err != nil {
@@ -62,14 +75,13 @@ func (g *GithubData) Process(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	log.Printf("\nAFTER PAYLOAD\n")
 	// Do something with payload
 	//if err := fn(event, &payload, req); err == nil {
 	//	_succeed()
 	//} else {
 	//	_fail(err)
 	//}
-
-	g.Fn(&payload)
 
 	// FIXME: take out
 	_succeed()

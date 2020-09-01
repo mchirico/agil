@@ -13,7 +13,7 @@ run:
 
 
 deploy:
-	docker build --build-arg buildtime_variable=${GITHUB_TOKEN}  --no-cache -t gcr.io/mchirico/agil:test -f Dockerfile .
+	docker build --build-arg buildtime_variable=${GITHUB_TOKEN} --build-arg webhook=${GITHUB_WEBHOOK_SECRET}  --no-cache -t gcr.io/mchirico/agil:test -f Dockerfile .
 	docker push gcr.io/mchirico/agil:test
 	gcloud run deploy agil  --image gcr.io/mchirico/agil:test --platform managed \
             --allow-unauthenticated --project mchirico \

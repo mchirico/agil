@@ -1,5 +1,7 @@
 package github
 
+import "time"
+
 type GitCommit struct {
 	Author    string `json:"author"`
 	Email     string `json:"email"`
@@ -66,6 +68,21 @@ type GitHubPayload struct {
 	Forced     bool           `json:"forced"`
 	Compare    string         `json:"compare"`
 	Pusher     GitHubPerson   `json:"pusher"`
+}
+
+// TODO: We may not need this
+type GithubProject struct {
+	URL        string       `json:"url"`
+	ProjectURL string       `json:"project_url"`
+	ColumnID   int          `json:"column_url"`
+	ID         int          `json:"id""`
+	NodeID     string       `json:"node_id"`
+	Note       string       `json:"note"`
+	Archived   bool         `json:"archived"`
+	Creator    GitHubPerson `json:"creator"`
+	CreatedAt  time.Time    `json:"created_at"`
+	UpdatedAt  time.Time    `json:"updated_at"`
+	AfterID    int          `json:"after_id"`
 }
 
 type PayloadPong struct {

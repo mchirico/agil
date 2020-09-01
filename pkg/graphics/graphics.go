@@ -20,8 +20,6 @@ func Circle(w http.ResponseWriter, r *http.Request) {
 		text2 = sanitize.BaseName(t2[0])
 	}
 
-
-
 	color1 := "firebrick"
 	color2 := "yellow"
 	color3 := "black"
