@@ -10,12 +10,6 @@ import (
 	"strings"
 )
 
-type GithubData struct {
-	Secret          string
-	Fn              func([]byte)
-	SecretValidated bool
-}
-
 func NewGithubData(secret string, fn func([]byte)) GithubData {
 
 	return GithubData{secret, fn, false}
