@@ -16,7 +16,7 @@
                       "name": "To do",
                       "databaseId": 10628538,
                       "createdAt": "2020-08-30T15:14:01Z",
-                      "updatedAt": "2020-09-01T17:44:55Z",
+                      "updatedAt": "2020-09-01T22:31:00Z",
                       "cards": {
                         "edges": [
                           {
@@ -51,9 +51,9 @@
                             "node": {
                               "id": "MDExOlByb2plY3RDYXJkNDQ2NDkyMTA=",
                               "databaseId": 44649210,
-                              "note": "![img](https://agil.mchirico.io/circle?text=%22istio%22&color4=lightblue&text2=%22Read%22&color1=%22lightblue%22)\r\n\r\nistio and service mesh is an interesting read... I'd like to read more of this.",
+                              "note": "![img](https://agil.mchirico.io/circle?text=%22istio%22&color4=lightblue&text2=%22Read%22&color1=%22lightblue%22)\r\n\r\nistio and service mesh is an interesting read... I'd like to read more of this.\r\n\r\n:istio",
                               "createdAt": "2020-09-01T01:12:15Z",
-                              "updatedAt": "2020-09-01T13:24:48Z",
+                              "updatedAt": "2020-09-01T22:30:43Z",
                               "url": "https://github.com/mchirico/agil/projects/1#card-44649210",
                               "isArchived": false,
                               "creator": {
@@ -65,9 +65,9 @@
                             "node": {
                               "id": "MDExOlByb2plY3RDYXJkNDQ2NDE0MDc=",
                               "databaseId": 44641407,
-                              "note": "![img](https://agil.mchirico.io/circle?text=%22Custom%22&color4=forestgreen&text2=%22Label%22&color1=%22forestgreen%22)\r\n\r\n\r\nMake artistic\r\n\r\nYou can find list of colors [here](https://github.com/ajstarks/svgo/blob/master/colortab/svgcolors.txt)",
+                              "note": "![img](https://agil.mchirico.io/circle?text=%22Custom%22&color4=forestgreen&text2=%22Label%22&color1=%22forestgreen%22)\r\n\r\n\r\nMake artistic\r\n\r\nNote label needs to be fixed\r\n\r\n![img](https://agil.mchirico.io/circle?text=%22Investigate%22&color4=lightseagreen&text2=%22NoRush%22&color2=%22lightsteelblue%22)\r\n\r\n\r\nYou can find list of colors [here](https://github.com/ajstarks/svgo/blob/master/colortab/svgcolors.txt)\r\n\r\n[colors](https://github.com/ajstarks/svgo/blob/master/colortab/svgcolors.txt)\r\n\r\n:label",
                               "createdAt": "2020-08-31T21:30:15Z",
-                              "updatedAt": "2020-09-01T13:23:07Z",
+                              "updatedAt": "2020-09-01T22:31:00Z",
                               "url": "https://github.com/mchirico/agil/projects/1#card-44641407",
                               "isArchived": false,
                               "creator": {
@@ -239,17 +239,17 @@
                       "name": "In progress",
                       "databaseId": 10628539,
                       "createdAt": "2020-08-30T15:14:01Z",
-                      "updatedAt": "2020-09-01T17:48:27Z",
+                      "updatedAt": "2020-09-01T22:30:19Z",
                       "cards": {
                         "edges": [
                           {
                             "node": {
-                              "id": "MDExOlByb2plY3RDYXJkNDQ3MDI0MTU=",
-                              "databaseId": 44702415,
-                              "note": "Testing\r\n\r\nGolang http testing\r\n\r\n:agil",
-                              "createdAt": "2020-09-01T17:45:06Z",
-                              "updatedAt": "2020-09-01T17:48:27Z",
-                              "url": "https://github.com/mchirico/agil/projects/1#card-44702415",
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTY5NDE=",
+                              "databaseId": 44716941,
+                              "note": "Tags\r\n\r\n:agil\r\n",
+                              "createdAt": "2020-09-01T22:14:49Z",
+                              "updatedAt": "2020-09-01T22:30:19Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44716941",
                               "isArchived": false,
                               "creator": {
                                 "login": "mchirico"
@@ -258,12 +258,12 @@
                           },
                           {
                             "node": {
-                              "id": "MDExOlByb2plY3RDYXJkNDQ2ODM3Nzc=",
-                              "databaseId": 44683777,
-                              "note": "Ideas and steps to clean up code\r\n\r\n:agil",
-                              "createdAt": "2020-09-01T13:26:43Z",
-                              "updatedAt": "2020-09-01T13:26:43Z",
-                              "url": "https://github.com/mchirico/agil/projects/1#card-44683777",
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTIxNDM=",
+                              "databaseId": 44712143,
+                              "note": "![img](https://agil.mchirico.io/circle?text=%22Investigate%22&color4=lightseagreen&text2=%22NoRush%22&color2=%22lightsteelblue%22)\r\n\r\n\r\nJust taking time to look at code... without being rushed.\r\n\r\n:agil",
+                              "createdAt": "2020-09-01T20:27:05Z",
+                              "updatedAt": "2020-09-01T20:32:24Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44712143",
                               "isArchived": false,
                               "creator": {
                                 "login": "mchirico"
@@ -280,7 +280,7 @@
                       "name": "Done",
                       "databaseId": 10628540,
                       "createdAt": "2020-08-30T15:14:01Z",
-                      "updatedAt": "2020-09-01T16:18:13Z",
+                      "updatedAt": "2020-09-01T22:04:45Z",
                       "cards": {
                         "edges": [
                           {
@@ -299,12 +299,96 @@
                           },
                           {
                             "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTQ4MzU=",
+                              "databaseId": 44714835,
+                              "note": "Ideas for Zoe\r\n\r\n",
+                              "createdAt": "2020-09-01T21:24:53Z",
+                              "updatedAt": "2020-09-01T22:04:45Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44714835",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTEyMjg=",
+                              "databaseId": 44711228,
+                              "note": "codebeat and code quality",
+                              "createdAt": "2020-09-01T20:10:46Z",
+                              "updatedAt": "2020-09-01T20:22:48Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44711228",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTQyMTc=",
+                              "databaseId": 44714217,
+                              "note": "Setup aibot1@cwxstat.com",
+                              "createdAt": "2020-09-01T21:09:56Z",
+                              "updatedAt": "2020-09-01T21:22:44Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44714217",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
                               "id": "MDExOlByb2plY3RDYXJkNDQ2ODQ3Mzg=",
                               "databaseId": 44684738,
                               "note": "Running 2 miles\r\n\r\n:running",
                               "createdAt": "2020-09-01T13:40:12Z",
                               "updatedAt": "2020-09-01T13:40:16Z",
                               "url": "https://github.com/mchirico/agil/projects/1#card-44684738",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ2ODM3Nzc=",
+                              "databaseId": 44683777,
+                              "note": "Ideas and steps to clean up code\r\n\r\n:agil",
+                              "createdAt": "2020-09-01T13:26:43Z",
+                              "updatedAt": "2020-09-01T20:58:23Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44683777",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MTEwMDk=",
+                              "databaseId": 44711009,
+                              "note": "Adding Mock",
+                              "createdAt": "2020-09-01T20:06:48Z",
+                              "updatedAt": "2020-09-01T20:06:51Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44711009",
+                              "isArchived": false,
+                              "creator": {
+                                "login": "mchirico"
+                              }
+                            }
+                          },
+                          {
+                            "node": {
+                              "id": "MDExOlByb2plY3RDYXJkNDQ3MDI0MTU=",
+                              "databaseId": 44702415,
+                              "note": "Testing\r\n\r\nGolang http testing\r\n\r\n:agil",
+                              "createdAt": "2020-09-01T17:45:06Z",
+                              "updatedAt": "2020-09-01T20:06:39Z",
+                              "url": "https://github.com/mchirico/agil/projects/1#card-44702415",
                               "isArchived": false,
                               "creator": {
                                 "login": "mchirico"
@@ -810,16 +894,16 @@
                       "name": "Metrics",
                       "databaseId": 10638287,
                       "createdAt": "2020-08-31T11:11:59Z",
-                      "updatedAt": "2020-09-01T18:59:11Z",
+                      "updatedAt": "2020-09-01T22:30:33Z",
                       "cards": {
                         "edges": [
                           {
                             "node": {
                               "id": "MDExOlByb2plY3RDYXJkNDQ2MDU0MzU=",
                               "databaseId": 44605435,
-                              "note": "\nUpdated:\n 09-01 14:59:11 pm\n\nDone: 5\nEpics: 0\nTo do: 4\nIn progress: 2\n\n Results include archived cards.\nShowing changes in the last 12 hours.",
+                              "note": "\nUpdated:\n 09-01 18:30:33 pm\n\nIn progress: 2\nDone: 11\nEpics: 0\nTo do: 4\n\n Results include archived cards.\nShowing changes in the last 12 hours.",
                               "createdAt": "2020-08-31T11:47:22Z",
-                              "updatedAt": "2020-09-01T18:59:11Z",
+                              "updatedAt": "2020-09-01T22:30:33Z",
                               "url": "https://github.com/mchirico/agil/projects/1#card-44605435",
                               "isArchived": false,
                               "creator": {
