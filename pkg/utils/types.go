@@ -1,6 +1,6 @@
 package utils
-// Ref: https://mholt.github.io/json-to-go/
 
+// Ref: https://mholt.github.io/json-to-go/
 
 import (
 	"time"

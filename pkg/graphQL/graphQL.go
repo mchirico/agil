@@ -3,6 +3,7 @@ package graphQL
 import (
 	"context"
 	"fmt"
+	"github.com/mchirico/agil/pkg/qtypes"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 	"os"
@@ -17,50 +18,6 @@ type StatData struct {
 }
 
 // Ref: https://github.com/mchirico/agil/issues/2
-
-type Q struct {
-	Repository struct {
-		Projects struct {
-			TotalCount int
-			Edges      []struct {
-				Node struct {
-					Name    string
-					Id      string
-					Columns struct {
-						Edges []struct {
-							Node struct {
-								Id         string
-								Name       string
-								DatabaseId int32
-								CreatedAt  time.Time
-								UpdatedAt  time.Time
-
-								Cards struct {
-									Edges []struct {
-										Node struct {
-											Id         string
-											DatabaseID int32
-											Note       string
-											CreatedAt  time.Time
-											UpdatedAt  time.Time
-											Url        string
-											IsArchived bool
-											Creator    struct {
-												Login string
-											}
-										}
-									}
-								} `graphql:"cards(last: 100)"`
-							}
-						}
-
-						TotalCount int
-					} `graphql:"columns(last: 10)"`
-				}
-			}
-		} `graphql:"projects(last: 1)"`
-	} `graphql:"repository(owner: \"mchirico\", name: \"agil\")"`
-}
 
 func MutateCard(status string, projectCardID string) {
 	var m struct {
@@ -92,8 +49,8 @@ func MutateCard(status string, projectCardID string) {
 	}
 }
 
-func QueryGraphQL() Q {
-	q := Q{}
+func QueryGraphQL() qtypes.Q {
+	q := qtypes.Q{}
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
 	)
@@ -111,7 +68,7 @@ func QueryGraphQL() Q {
 	return q
 }
 
-func Columns(q Q) {
+func Columns(q qtypes.Q) {
 	fmt.Printf("\n  Columns:\n")
 	for i, v := range q.Repository.Projects.Edges[0].Node.Columns.Edges {
 		fmt.Printf("i:%v v: %v updated: %v      id: %v\n", i,
@@ -120,7 +77,7 @@ func Columns(q Q) {
 
 }
 
-func Cards(q Q) string {
+func Cards(q qtypes.Q) string {
 	s := ""
 	s = fmt.Sprintf("\n  Cards:\n")
 	for _, columns := range q.Repository.Projects.Edges[0].Node.Columns.Edges {
@@ -139,7 +96,7 @@ func Cards(q Q) string {
 	return s
 }
 
-func TotalCardsToday(q Q) map[string]StatData {
+func TotalCardsToday(q qtypes.Q) map[string]StatData {
 
 	m := map[string]StatData{}
 	for _, columns := range q.Repository.Projects.Edges[0].Node.Columns.Edges {
