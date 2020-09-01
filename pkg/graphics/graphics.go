@@ -38,7 +38,7 @@ func Circle(w http.ResponseWriter, r *http.Request) {
 	if ok {
 		color3 = sanitize.BaseName(c3[0])
 	}
-	c4, ok := r.URL.Query()["color3"]
+	c4, ok := r.URL.Query()["color4"]
 	if ok {
 		color4 = sanitize.BaseName(c4[0])
 	}
