@@ -156,7 +156,7 @@ func TotalCardsToday(q Q) map[string]StatData {
 			}
 			now := time.Now()
 
-			if now.Sub(recent).Hours() < 24 {
+			if now.Sub(recent).Hours() < 12 {
 				data := m[columns.Node.Name]
 				data.Count += 1
 				m[columns.Node.Name] = data
@@ -192,7 +192,8 @@ func TimeStampIT() {
 		}
 
 	}
-	msg += "\n Results include archived cards."
+	msg += "\n Results include archived cards." +
+		"\nShowing changes in the last 12 hours."
 
 	MutateCard(msg, projectCardID)
 
