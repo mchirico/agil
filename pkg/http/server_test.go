@@ -5,5 +5,5 @@ import (
 )
 
 func Test_web(t *testing.T) {
-	Static()
+	// Static()
 }

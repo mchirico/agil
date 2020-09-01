@@ -17,7 +17,7 @@ func Static() {
 	log.Println("starting server...")
 	count := 0
 
-	go graphQL.UpdateEvery10min()
+	go graphQL.UpdateEveryNtime()
 
 	http.HandleFunc("/cards", func(w http.ResponseWriter, r *http.Request) {
 		q := graphQL.QueryGraphQL()
@@ -40,7 +40,7 @@ func Static() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-		version := "v0.0.3a"
+		version := "v0.0.4a"
 		switch r.Method {
 		case "GET":
 			msg := fmt.Sprintf("\nversion: %v\ngithub: %v\n", version, count)

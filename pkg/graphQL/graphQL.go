@@ -166,7 +166,7 @@ func TotalCardsToday(q Q) map[string]StatData {
 	return m
 }
 
-func UpdateEvery10min() {
+func UpdateEveryNtime() {
 	for {
 		TimeStampIT()
 		time.Sleep(300 * time.Second)
