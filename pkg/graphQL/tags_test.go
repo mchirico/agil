@@ -8,10 +8,9 @@ import (
 func Test_FindTags(t *testing.T) {
 
 	q := testing_graphql.MockQueryGraphQL(t)
-	//fmt.Println(q.Repository.Projects.Edges[0].Node.Columns.Edges[0].Node.Name)
 	r := FindTags(q)
 	found := false
-	for _,v := range r {
+	for _, v := range r {
 		if string(v.Tag) == ":agil:testing" {
 			found = true
 		}
@@ -19,4 +18,12 @@ func Test_FindTags(t *testing.T) {
 	if !found {
 		t.Fatalf("Tag \"agil:testing\" not found\n")
 	}
+}
+
+func Test_MockEdited(t *testing.T) {
+	r := testing_graphql.MockResponse()
+	if r.Action != "edited" {
+		t.Fatalf("Not picking up correct json mock?")
+	}
+
 }
