@@ -69,6 +69,11 @@ func Static() {
 		if projectCardUpdate.Action == "created" {
 			log.Printf("\nCard Created:\nNode: %v\n",
 				projectCardUpdate.ProjectCard.Note)
+			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
+		}
+
+		if projectCardUpdate.Action == "updated" {
+			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
 		}
 
 		if projectCardUpdate.Action == "moved" {

@@ -5,6 +5,7 @@ import (
 	"github.com/mchirico/agil/pkg/qtypes"
 	"github.com/mchirico/agil/pkg/utils"
 	"regexp"
+	"strings"
 	"time"
 )
 
@@ -82,4 +83,27 @@ func MarkCmds(r utils.ProjectCardUpdate) (NoteToUpdate, error) {
 		}
 	}
 	return NoteToUpdate{}, nil
+}
+
+// TODO: Pull this out, when done
+func OnUpdateDoCMD(r utils.ProjectCardUpdate, fn func(string, string)) {
+
+	result, err := MarkCmds(r)
+	if err != nil {
+		return
+	}
+
+	if len(result.NoteID) > 10 {
+
+		img := `![img](https://agil.mchirico.io/circle?text=Active&text2=%22a.i.%20bot%22&id=2342&tag=+=vbot)
+`
+		newstring := fmt.Sprintf("%s\n%s", img, result.Tag)
+
+		s := strings.ReplaceAll(result.Note, string(result.Tag), newstring)
+
+		fn(s, result.NoteID)
+
+		// MutateCard(s, result.NoteID)
+
+	}
 }

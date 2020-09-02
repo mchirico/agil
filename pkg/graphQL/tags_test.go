@@ -1,7 +1,9 @@
 package graphQL
 
 import (
+	"fmt"
 	testing_graphql "github.com/mchirico/agil/pkg/fixtures/testing-graphql"
+	"strings"
 	"testing"
 )
 
@@ -47,5 +49,21 @@ func Test_MarkCmds(t *testing.T) {
 	if result.NoteID != "" {
 		t.Fatalf("should have caught image")
 	}
+
+}
+
+func Test_OnUpdateDoCMD(t *testing.T) {
+	r := testing_graphql.MockResponse()
+	_exFn := func(s0, s1 string) {
+
+		img := `![img](https://agil.mchirico.io/circle?text=Active&text2=%22a.i.%20bot%22&id=2342&tag=+=vbot)`
+		if !strings.Contains(s0, img) {
+			t.Fatalf("img not found in %v\n", s0)
+		}
+		fmt.Println(s0, s1)
+	}
+
+	OnUpdateDoCMD(r, _exFn)
+	// OnUpdateDoCMD(r,MutateCard)
 
 }
