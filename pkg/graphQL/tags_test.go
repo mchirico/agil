@@ -30,6 +30,22 @@ func Test_MockEdited(t *testing.T) {
 
 func Test_MarkCmds(t *testing.T) {
 	r := testing_graphql.MockResponse()
-	MarkCmds(r)
+	result, _ := MarkCmds(r)
+	if result.NoteID != "MDExOlByb2plY3RDYXJkNDQ3NTUxMzE=" {
+		t.Fatalf("Failed to find slash in %v\n", result.Note)
+	}
+	if string(result.Tag) != "/status :agil:testing" {
+		t.Fatalf("Can't find tag. Got: %v\n", result.Tag)
+	}
+
+	r.ProjectCard.Note = `
+
+![img](https://agil.mchirico.io/circle?text=Active&text2=%22a.i.%20bot%22&id=2342&tag=+=vbot)
+/status :agil:testing
+`
+	result, _ = MarkCmds(r)
+	if result.NoteID != "" {
+		t.Fatalf("should have caught image")
+	}
 
 }

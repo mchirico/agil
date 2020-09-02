@@ -50,11 +50,36 @@ func FindTags(q qtypes.Q, regex string) []Tags {
 	return tags
 }
 
-func MarkCmds(r utils.ProjectCardUpdate) {
+type NoteToUpdate struct {
+	Note   string
+	NoteID string
+	Tag    []byte
+}
+
+func MarkCmds(r utils.ProjectCardUpdate) (NoteToUpdate, error) {
 	if r.Action == "edited" || r.Action == "created" {
 
-		fmt.Println(r.ProjectCard.Note)
+		_done := func(s string) []byte {
+			regex := `tag=\+=vbot`
+			re := regexp.MustCompile(regex)
+			ok := re.Find([]byte(s))
+			fmt.Println(string(ok))
+			return ok
+		}
+		regex := `/[a-z|A-Z].* :[a-z|A-Z].*$`
+		re := regexp.MustCompile(regex)
+		ok := re.Find([]byte(r.ProjectCard.Note))
+		if ok != nil {
 
+			if _done(r.ProjectCard.Note) == nil {
+				ntu := NoteToUpdate{
+					Note:   r.ProjectCard.Note,
+					NoteID: r.ProjectCard.NodeID,
+					Tag:    ok,
+				}
+				return ntu, nil
+			}
+		}
 	}
-
+	return NoteToUpdate{}, nil
 }
