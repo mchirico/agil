@@ -45,7 +45,7 @@ func MutateCard(status string, projectCardID string) {
 
 	err := client.Mutate(context.Background(), &m, input, nil)
 	if err != nil {
-		fmt.Printf("err: %v\n", err)
+		fmt.Printf("MutateCard err: %v\n", err)
 	}
 }
 

@@ -72,7 +72,8 @@ func Static() {
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
 		}
 
-		if projectCardUpdate.Action == "updated" {
+		if projectCardUpdate.Action == "edited" {
+			log.Printf("\nCard Edited\n")
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
 		}
 

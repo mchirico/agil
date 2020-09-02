@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mchirico/agil/pkg/qtypes"
 	"github.com/mchirico/agil/pkg/utils"
+	"log"
 	"regexp"
 	"strings"
 	"time"
@@ -60,6 +61,8 @@ type NoteToUpdate struct {
 func MarkCmds(r utils.ProjectCardUpdate) (NoteToUpdate, error) {
 	if r.Action == "edited" || r.Action == "created" {
 
+		log.Printf("MarkCmds:"+
+			"\nNote: %v\n", r.ProjectCard.Note)
 		_done := func(s string) []byte {
 			regex := `tag=\+=vbot`
 			re := regexp.MustCompile(regex)
@@ -70,6 +73,11 @@ func MarkCmds(r utils.ProjectCardUpdate) (NoteToUpdate, error) {
 		regex := `/[a-z|A-Z].* :[a-z|A-Z].*$`
 		re := regexp.MustCompile(regex)
 		ok := re.Find([]byte(r.ProjectCard.Note))
+
+		log.Printf("MarkCmds:"+
+			"\nNote: %v"+
+			"\nok: %v\n", r.ProjectCard.Note, ok)
+
 		if ok != nil {
 
 			if _done(r.ProjectCard.Note) == nil {
@@ -92,6 +100,10 @@ func OnUpdateDoCMD(r utils.ProjectCardUpdate, fn func(string, string)) {
 	if err != nil {
 		return
 	}
+
+	log.Printf("OnUpdateDoCMD:"+
+		"\nNote: %v"+
+		"\n", r.ProjectCard.Note)
 
 	if len(result.NoteID) > 10 {
 
