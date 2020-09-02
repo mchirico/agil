@@ -1,25 +1,29 @@
 package graphQL
 
 import (
+	"fmt"
 	"github.com/mchirico/agil/pkg/qtypes"
+	"github.com/mchirico/agil/pkg/utils"
 	"regexp"
 	"time"
 )
 
 type Tags struct {
-	Note     string
-	ColID    string
-	NodeID    string
-	Tag       []byte
-	UpdatedAt time.Time
-	CreatedAt time.Time
-	URL       string
+	Note       string
+	ColID      string
+	NodeID     string
+	Tag        []byte
+	UpdatedAt  time.Time
+	CreatedAt  time.Time
+	URL        string
 	IsArchived bool
 }
 
-func FindTags(q qtypes.Q) []Tags {
+// regex := `:[a-z|A-Z].*$`
+func FindTags(q qtypes.Q, regex string) []Tags {
+
 	tags := []Tags{}
-	re := regexp.MustCompile(`:[a-z|A-Z].*$`)
+	re := regexp.MustCompile(regex)
 
 	for _, column := range q.Repository.Projects.Edges[0].Node.Columns.Edges {
 
@@ -38,11 +42,19 @@ func FindTags(q qtypes.Q) []Tags {
 				tag.ColID = column.Node.Id
 				tag.Tag = ok
 
-
-				tags = append(tags,tag)
+				tags = append(tags, tag)
 
 			}
 		}
 	}
 	return tags
+}
+
+func MarkCmds(r utils.ProjectCardUpdate) {
+	if r.Action == "edited" || r.Action == "created" {
+
+		fmt.Println(r.ProjectCard.Note)
+
+	}
+
 }

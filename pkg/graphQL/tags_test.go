@@ -8,7 +8,7 @@ import (
 func Test_FindTags(t *testing.T) {
 
 	q := testing_graphql.MockQueryGraphQL(t)
-	r := FindTags(q)
+	r := FindTags(q, `:[a-z|A-Z].*$`)
 	found := false
 	for _, v := range r {
 		if string(v.Tag) == ":agil:testing" {
@@ -25,5 +25,11 @@ func Test_MockEdited(t *testing.T) {
 	if r.Action != "edited" {
 		t.Fatalf("Not picking up correct json mock?")
 	}
+
+}
+
+func Test_MarkCmds(t *testing.T) {
+	r := testing_graphql.MockResponse()
+	MarkCmds(r)
 
 }
