@@ -77,7 +77,6 @@ func QueryGraphQL(options ...func(*GH4) error) qtypes.Q {
 	if err != nil {
 		fmt.Printf("\nerror:%v\n", err)
 	}
-	fmt.Printf("...\n\n...")
 
 	return q
 }
