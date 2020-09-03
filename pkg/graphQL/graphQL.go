@@ -146,7 +146,7 @@ func UpdateEveryNtime() {
 
 var lastUpdate = time.Now()
 
-func TimeStampIT() {
+func TimeStampIT() error {
 	lastUpdate = time.Now()
 
 	q := QueryGraphQL()
@@ -166,5 +166,5 @@ func TimeStampIT() {
 		"\nShowing changes in the last 12 hours."
 
 	MutateCard(msg, projectCardID)
-
+	return nil
 }
