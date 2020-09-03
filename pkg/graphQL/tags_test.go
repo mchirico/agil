@@ -54,7 +54,7 @@ func Test_MarkCmds(t *testing.T) {
 
 func Test_OnUpdateDoCMD(t *testing.T) {
 	r := testing_graphql.MockResponse()
-	_exFn := func(s0, s1 string) {
+	_exFn := func(s0, s1 string, options ...func(*GH4) error) {
 
 		img := `![img](https://agil.mchirico.io/circle?text=Active&text2=%22a.i.%20bot%22&id=2342&tag=+=vbot)`
 		if !strings.Contains(s0, img) {
