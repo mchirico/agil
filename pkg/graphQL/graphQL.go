@@ -6,6 +6,7 @@ import (
 	"github.com/mchirico/agil/pkg/qtypes"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
+	"log"
 	"os"
 	"time"
 	_ "time/tzdata"
@@ -19,7 +20,16 @@ type StatData struct {
 
 // Ref: https://github.com/mchirico/agil/issues/2
 
-func MutateCard(status string, projectCardID string) {
+func MutateCard(status string, projectCardID string, options ...func(*GH4) error) {
+
+	gh4 := DefaultGH4()
+	for _, op := range options {
+		err := op(gh4)
+		if err != nil {
+			log.Fatalf("Invalid Option Setup")
+		}
+	}
+
 	var m struct {
 		UpdateProjectCard struct {
 			ProjectCard struct {
@@ -35,31 +45,35 @@ func MutateCard(status string, projectCardID string) {
 		Note:          &s,
 	}
 
-	src := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
-	)
-
-	httpClient := oauth2.NewClient(context.Background(), src)
-
-	client := githubv4.NewClient(httpClient)
-
-	err := client.Mutate(context.Background(), &m, input, nil)
+	err := gh4.client.Mutate(context.Background(), &m, input, nil)
 	if err != nil {
 		fmt.Printf("MutateCard err: %v\n", err)
 	}
 }
 
-func QueryGraphQL() qtypes.Q {
-	q := qtypes.Q{}
-	src := oauth2.StaticTokenSource(
+func DefaultGH4() *GH4 {
+	gh4 := &GH4{}
+
+	gh4.src = oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
 	)
+	gh4.httpClient = oauth2.NewClient(context.Background(), gh4.src)
+	gh4.client = githubv4.NewClient(gh4.httpClient)
+	return gh4
+}
 
-	httpClient := oauth2.NewClient(context.Background(), src)
+func QueryGraphQL(options ...func(*GH4) error) qtypes.Q {
 
-	client := githubv4.NewClient(httpClient)
+	gh4 := DefaultGH4()
+	for _, op := range options {
+		err := op(gh4)
+		if err != nil {
+			log.Fatalf("Invalid Option Setup")
+		}
+	}
 
-	err := client.Query(context.Background(), &q, nil)
+	q := qtypes.Q{}
+	err := gh4.client.Query(context.Background(), &q, nil)
 	if err != nil {
 		fmt.Printf("\nerror:%v\n", err)
 	}
