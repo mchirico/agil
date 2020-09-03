@@ -20,7 +20,8 @@ type StatData struct {
 
 // Ref: https://github.com/mchirico/agil/issues/2
 
-func MutateCard(status string, projectCardID string, options ...func(*GH4) error) {
+func MutateCard(status string,
+	projectCardID string, options ...func(*qtypes.GH4) error) {
 
 	gh4 := DefaultGH4()
 	for _, op := range options {
@@ -45,24 +46,25 @@ func MutateCard(status string, projectCardID string, options ...func(*GH4) error
 		Note:          &s,
 	}
 
-	err := gh4.client.Mutate(context.Background(), &m, input, nil)
+	err := gh4.Client.Mutate(context.Background(), &m, input, nil)
 	if err != nil {
 		fmt.Printf("MutateCard err: %v\n", err)
 	}
 }
 
-func DefaultGH4() *GH4 {
-	gh4 := &GH4{}
+func DefaultGH4() *qtypes.GH4 {
 
-	gh4.src = oauth2.StaticTokenSource(
+	gh4 := &qtypes.GH4{}
+
+	gh4.Src = oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
 	)
-	gh4.httpClient = oauth2.NewClient(context.Background(), gh4.src)
-	gh4.client = githubv4.NewClient(gh4.httpClient)
+	gh4.HttpClient = oauth2.NewClient(context.Background(), gh4.Src)
+	gh4.Client = githubv4.NewClient(gh4.HttpClient)
 	return gh4
 }
 
-func QueryGraphQL(options ...func(*GH4) error) qtypes.Q {
+func QueryGraphQL(options ...func(*qtypes.GH4) error) qtypes.Q {
 
 	gh4 := DefaultGH4()
 	for _, op := range options {
@@ -73,7 +75,7 @@ func QueryGraphQL(options ...func(*GH4) error) qtypes.Q {
 	}
 
 	q := qtypes.Q{}
-	err := gh4.client.Query(context.Background(), &q, nil)
+	err := gh4.Client.Query(context.Background(), &q, nil)
 	if err != nil {
 		fmt.Printf("\nerror:%v\n", err)
 	}

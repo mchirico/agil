@@ -3,6 +3,7 @@ package graphQL
 import (
 	"fmt"
 	testing_graphql "github.com/mchirico/agil/pkg/fixtures/testing-graphql"
+	"strings"
 	"testing"
 )
 
@@ -34,4 +35,13 @@ func Test_TotalCardsToday(t *testing.T) {
 	if len(r) != 5 {
 		t.Fatalf("TotalCardsToday not working")
 	}
+}
+
+func Test_QueryGraphQL(t *testing.T) {
+	q := QueryGraphQL(testing_graphql.MockOpt)
+	s := fmt.Sprintf("%v", q)
+	if !strings.Contains(s, "istio and service") {
+		t.Fatalf("Not picking of Mock for QueryGraphQL")
+	}
+
 }

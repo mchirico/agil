@@ -1,6 +1,17 @@
 package qtypes
 
-import "time"
+import (
+	"github.com/shurcooL/githubv4"
+	"golang.org/x/oauth2"
+	"net/http"
+	"time"
+)
+
+type GH4 struct {
+	Src        oauth2.TokenSource
+	HttpClient *http.Client
+	Client     *githubv4.Client
+}
 
 type Q struct {
 	Repository struct {

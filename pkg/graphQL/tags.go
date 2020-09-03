@@ -4,10 +4,7 @@ import (
 	"fmt"
 	"github.com/mchirico/agil/pkg/qtypes"
 	"github.com/mchirico/agil/pkg/utils"
-	"github.com/shurcooL/githubv4"
-	"golang.org/x/oauth2"
 	"log"
-	"net/http"
 	"regexp"
 	"strings"
 	"time"
@@ -22,12 +19,6 @@ type Tags struct {
 	CreatedAt  time.Time
 	URL        string
 	IsArchived bool
-}
-
-type GH4 struct {
-	src        oauth2.TokenSource
-	httpClient *http.Client
-	client     *githubv4.Client
 }
 
 // regex := `:[a-z|A-Z].*$`
@@ -104,7 +95,7 @@ func MarkCmds(r utils.ProjectCardUpdate) (NoteToUpdate, error) {
 
 // TODO: Pull this out, when done
 
-func OnUpdateDoCMD(r utils.ProjectCardUpdate, fn func(string, string, ...func(*GH4) error)) {
+func OnUpdateDoCMD(r utils.ProjectCardUpdate, fn func(string, string, ...func(*qtypes.GH4) error)) {
 
 	result, err := MarkCmds(r)
 	if err != nil {
