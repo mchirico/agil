@@ -5,7 +5,6 @@ import (
 	"fmt"
 	gofirebase "github.com/mchirico/go-firebase/pkg/gofirebase"
 	util "github.com/mchirico/go-firebase/pkg/utils"
-	"google.golang.org/api/iterator"
 	"testing"
 )
 
@@ -34,24 +33,7 @@ func TestReadWrite_Firebase(t *testing.T) {
 	fb.CreateApp(ctx)
 	fb.WriteMap(ctx, doc, "testAgil", "AgilV0.0.1")
 
-	iter, findClient := fb.Find(ctx, "testAgil", "function", "==", "TestAuthenticate")
-	resultFind := map[string]interface{}{}
-	for {
-		doc, err := iter.Next()
-		if err == iterator.Done {
-			break
-		}
-		if err != nil {
-			return
-		}
-		fmt.Println(doc.Data())
-		for k, v := range doc.Data() {
-			resultFind[k] = v
-		}
-
-	}
-	// NOTE: Have to close at some point
-	findClient.Close()
+	resultFind, err := fb.Find(ctx, "testAgil", "function", "==", "TestAuthenticate")
 	if resultFind["test"] != "This is example text..." {
 		t.Fatalf("Find not working")
 	}

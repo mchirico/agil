@@ -10,12 +10,12 @@ import (
 
 func MockResponse(action string) utils.ProjectCardUpdate {
 
-	actionMap :=map[string]string{}
+	actionMap := map[string]string{}
 	actionMap["edited"] = "action-project_card-edited.json"
 	actionMap["created"] = "action-project_card-created.json"
 	actionMap["moved"] = "action-project_card-moved.json"
 
-	if _,ok := actionMap[action];!ok {
+	if _, ok := actionMap[action]; !ok {
 		log.Fatalf("invalid action")
 	}
 
