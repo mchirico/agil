@@ -3,6 +3,7 @@ package graphQL
 import (
 	"fmt"
 	testing_graphql "github.com/mchirico/agil/pkg/fixtures/testing-graphql"
+	"os"
 	"strings"
 	"testing"
 )
@@ -25,7 +26,9 @@ func Test_Columns(t *testing.T) {
 
 func Test_TimeStampIT(t *testing.T) {
 	// FIXME: To run with Mock
-	// TimeStampIT()
+	if len(os.Getenv("GITHUB_TOKEN")) != 0 {
+		TimeStampIT()
+	}
 }
 
 // Very simple test
