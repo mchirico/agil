@@ -17,7 +17,7 @@ deploy:
 	docker push gcr.io/mchirico/agil:test
 	gcloud run deploy agil  --image gcr.io/mchirico/agil:test --platform managed \
             --allow-unauthenticated --project mchirico \
-            --region us-east1 --port 3000 --max-instances 3  --memory 256Mi
+            --region us-east1 --port 3000 --max-instances 1  --memory 256Mi
 
 
 
