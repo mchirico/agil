@@ -22,6 +22,21 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
 
+    # Setup gcloud CLI
+    - uses: mchirico/gcp-actions@v1
+      with:
+        version: 'latest'
+        service_account_key: ${{ secrets.OWNER }}
+
+
+    # Credentials
+    - name: Get and Create Credentials
+      run: |
+       mkdir -p credentials
+       gsutil cp gs://nodesepta/agil/credentials/*.json credentials
+       ls -l credentials
+
+
     - name: Get dependencies
       run: |
         go get -v -t -d ./...
