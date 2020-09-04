@@ -8,9 +8,18 @@ import (
 	"log"
 )
 
-func MockResponse() utils.ProjectCardUpdate {
+func MockResponse(action string) utils.ProjectCardUpdate {
 
-	body := read("../fixtures/testing-graphql/" + "action-project_card-edited.json")
+	actionMap :=map[string]string{}
+	actionMap["edited"] = "action-project_card-edited.json"
+	actionMap["created"] = "action-project_card-created.json"
+	actionMap["moved"] = "action-project_card-moved.json"
+
+	if _,ok := actionMap[action];!ok {
+		log.Fatalf("invalid action")
+	}
+
+	body := read("../fixtures/testing-graphql/" + actionMap[action])
 
 	projectCardUpdate := utils.ProjectCardUpdate{}
 	if err := json.Unmarshal(body, &projectCardUpdate); err != nil {

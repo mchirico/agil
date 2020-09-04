@@ -24,7 +24,7 @@ func Test_FindTags(t *testing.T) {
 }
 
 func Test_MockEdited(t *testing.T) {
-	r := testing_graphql.MockResponse()
+	r := testing_graphql.MockResponse("edited")
 	if r.Action != "edited" {
 		t.Fatalf("Not picking up correct json mock?")
 	}
@@ -32,7 +32,7 @@ func Test_MockEdited(t *testing.T) {
 }
 
 func Test_MarkCmds(t *testing.T) {
-	r := testing_graphql.MockResponse()
+	r := testing_graphql.MockResponse("edited")
 	result, _ := MarkCmds(r)
 	if result.NoteID != "MDExOlByb2plY3RDYXJkNDQ3NTUxMzE=" {
 		t.Fatalf("Failed to find slash in %v\n", result.Note)
@@ -54,7 +54,7 @@ func Test_MarkCmds(t *testing.T) {
 }
 
 func Test_OnUpdateDoCMD(t *testing.T) {
-	r := testing_graphql.MockResponse()
+	r := testing_graphql.MockResponse("edited")
 	_exFn := func(s0, s1 string, options ...func(*qtypes.GH4) error) {
 
 		img := `![img](https://agil.mchirico.io/circle?text=Active&text2=%22a.i.%20bot%22&id=2342&tag=+=vbot)`
