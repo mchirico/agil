@@ -33,3 +33,4 @@ func FindCredentials() (string,error) {
 	loc, err := LocateFile(locations)
 	return loc, err
 }
+
