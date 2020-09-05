@@ -19,6 +19,7 @@ type FBTimeStamp struct {
 	UpdatedAt       time.Time
 	Updates         map[string]interface{}
 	FirebaseUpdated bool
+	Archived        bool
 }
 
 func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
@@ -33,6 +34,7 @@ func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
 			r.ProjectCard.UpdatedAt,
 			map[string]interface{}{},
 			false,
+			r.ProjectCard.Archived,
 		}
 		return fbt, nil
 
@@ -65,6 +67,7 @@ func BuildMap(fbt *FBTimeStamp) (map[string]interface{}, error) {
 	m["Action"] = fbt.Action
 	m["Changes"] = fbt.Changes
 	m["Updates"] = fbt.Updates
+	m["Archived"] = fbt.Archived
 	if len(fbt.NoteID) == 0 {
 		return m, errors.New("No NoteID")
 	}
@@ -121,6 +124,7 @@ func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 	um["UpdatedAt"] = m["UpdatedAt"]
 	um["Action"] = m["Action"]
 	um["Changes"] = m["Changes"]
+	um["Archived"] = m["Archived"]
 
 	fb.WriteMap(ctx, um, "Agil", noteID)
 	fb.WriteMapCol2Doc2(ctx, m, "Agil", noteID, updated.String(), action)
