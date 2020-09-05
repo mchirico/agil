@@ -109,3 +109,31 @@ func TestErrors(t *testing.T) {
 	FILEBASE_TOKEN = tmp
 
 }
+
+type ff struct{}
+
+func (f *ff) Data() map[string]interface{} {
+	m := map[string]interface{}{}
+	m["UpdatedAt"] = time.Now()
+	m["Action"] = "spud"
+	m["Updates"] = map[string]interface{}{}
+	return m
+}
+func Test_updateMainCard(t *testing.T) {
+
+	f := &ff{}
+	m := map[string]interface{}{}
+	now := time.Now()
+	m["UpdatedAt"] = now
+	m["Action"] = "no spud"
+	m["Note"] = "mNote"
+	m["Changes"] = map[string]interface{}{}
+	m["Archived"] = "snow"
+	m["Updates"] = map[string]interface{}{}
+
+	um := _updateMainCard(f, m)
+	if um["Action"] != "no spud" {
+		t.Fatalf("_updateMainCard didn't update")
+	}
+
+}

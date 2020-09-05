@@ -92,6 +92,28 @@ func InsertCreateCardIntoFB(fbt *FBTimeStamp) {
 
 }
 
+type DataFunc interface {
+	Data() map[string]interface{}
+}
+
+func _updateMainCard(toupdate DataFunc, m map[string]interface{}) map[string]interface{} {
+
+	um := toupdate.Data()
+	updated := m["UpdatedAt"].(time.Time)
+	action := m["Action"].(string)
+
+	uUpdates := um["Updates"].(map[string]interface{})
+	timeStamp := updated.String()
+	uUpdates[timeStamp] = action
+
+	um["Note"] = m["Note"]
+	um["UpdatedAt"] = m["UpdatedAt"]
+	um["Action"] = m["Action"]
+	um["Changes"] = m["Changes"]
+	um["Archived"] = m["Archived"]
+	return um
+}
+
 func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 
 	fb, ctx, cancel, err := CreateFB()
@@ -114,17 +136,7 @@ func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 	}
 
 	toupdate, err := fb.ReadMap(ctx, "Agil", noteID)
-	um := toupdate.Data()
-
-	uUpdates := um["Updates"].(map[string]interface{})
-	timeStamp := updated.String()
-	uUpdates[timeStamp] = action
-
-	um["Note"] = m["Note"]
-	um["UpdatedAt"] = m["UpdatedAt"]
-	um["Action"] = m["Action"]
-	um["Changes"] = m["Changes"]
-	um["Archived"] = m["Archived"]
+	um := _updateMainCard(toupdate, m)
 
 	fb.WriteMap(ctx, um, "Agil", noteID)
 	fb.WriteMapCol2Doc2(ctx, m, "Agil", noteID, updated.String(), action)
