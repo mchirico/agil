@@ -3,6 +3,7 @@ package firebase
 import (
 	"context"
 	"errors"
+	"github.com/mchirico/agil/pkg/graphQL"
 	"github.com/mchirico/agil/pkg/utils"
 	"github.com/mchirico/go-firebase/pkg/gofirebase"
 	"log"
@@ -20,7 +21,7 @@ type FBTimeStamp struct {
 }
 
 func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
-	if r.Action == "created" || r.Action == "moved" {
+	if r.Action == "created" || r.Action == "moved" || r.Action == "updated" {
 
 		fbt := &FBTimeStamp{
 			r.ProjectCard.Note,
@@ -67,7 +68,7 @@ func BuildMap(fbt *FBTimeStamp) (map[string]interface{}, error) {
 	return m, nil
 }
 
-func InsertCardIntoFB(fbt *FBTimeStamp) {
+func InsertCreateCardIntoFB(fbt *FBTimeStamp) {
 
 	fb, ctx, cancel, err := CreateFB()
 	if err != nil {
@@ -77,13 +78,41 @@ func InsertCardIntoFB(fbt *FBTimeStamp) {
 
 	m, err := BuildMap(fbt)
 	if err != nil {
-		log.Printf("InsertCardIntoFB: %v\n", err)
+		log.Printf("InsertCreateCardIntoFB: %v\n", err)
 		return
 	}
 	noteID := m["NoteID"].(string)
 	fb.WriteMap(ctx, m, "Agil", noteID)
 
 }
+
+func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
+
+	fb, ctx, cancel, err := CreateFB()
+	if err != nil {
+		return
+	}
+	defer cancel()
+
+	m, err := BuildMap(fbt)
+	if err != nil {
+		log.Printf("InsertUpdateCardIntoFB: %v\n", err)
+		return
+	}
+	noteID := m["NoteID"].(string)
+	updated := m["UpdatedAt"].(string)
+	action := m["Action"].(string)
+
+	if noteID == graphQL.PROJECTCARDID {
+		return
+	}
+
+	fb.WriteMap(ctx, m, "Agil", noteID)
+	fb.WriteMapCol2Doc2(ctx,m,"Agil",noteID,updated,action)
+
+}
+
+
 
 func GetCardInfo(nodeID string) (map[string]interface{}, error) {
 

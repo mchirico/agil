@@ -27,18 +27,19 @@ func GithubActions() github.GithubData {
 			log.Printf("\nCard Created:\nNode: %v\n",
 				projectCardUpdate.ProjectCard.Note)
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
-			tracking.TrackCreateMoved(projectCardUpdate)
+			tracking.TrackCreate(projectCardUpdate)
 		}
 
 		if projectCardUpdate.Action == "edited" {
 			log.Printf("\nCard Edited\n")
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
+			tracking.TrackUpdate(projectCardUpdate)
 		}
 
 		if projectCardUpdate.Action == "moved" {
 			log.Printf("\nCard Moved:\nNode: %v\n, From: %v\n",
 				projectCardUpdate.ProjectCard.Note, projectCardUpdate.Changes.ColumnID.From)
-			tracking.TrackCreateMoved(projectCardUpdate)
+			tracking.TrackUpdate(projectCardUpdate)
 		}
 
 	})

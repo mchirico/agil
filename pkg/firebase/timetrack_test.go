@@ -51,7 +51,7 @@ func TestInsertTimeStamp(t *testing.T) {
 	result, _ := IdentifyCard(r)
 	result.NoteID = "A_test_CARD"
 	result.Updates = buildmap()
-	InsertCardIntoFB(result)
+	InsertCreateCardIntoFB(result)
 	resultFind, err := GetCardInfo("A_test_CARD")
 	if err != nil {
 		t.Fatalf("TestInsertTimeStamp")
@@ -68,7 +68,7 @@ func TestErrors(t *testing.T) {
 	r := testing_graphql.MockResponse("created")
 	result, _ := IdentifyCard(r)
 	result.NoteID = "A_test_CARD"
-	InsertCardIntoFB(result)
+	InsertCreateCardIntoFB(result)
 	_, err := GetCardInfo("A_test_CARD")
 	if err == nil {
 		t.Fatalf("Should have errored")

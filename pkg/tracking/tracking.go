@@ -5,11 +5,20 @@ import (
 	"github.com/mchirico/agil/pkg/utils"
 )
 
-func TrackCreateMoved(pc utils.ProjectCardUpdate) {
+func TrackCreate(pc utils.ProjectCardUpdate) {
 
 	result, err := firebase.IdentifyCard(pc)
 	if err != nil {
 		return
 	}
-	firebase.InsertCardIntoFB(result)
+	firebase.InsertCreateCardIntoFB(result)
+}
+
+func TrackUpdate(pc utils.ProjectCardUpdate) {
+
+	result, err := firebase.IdentifyCard(pc)
+	if err != nil {
+		return
+	}
+	firebase.InsertUpdateCardIntoFB(result)
 }
