@@ -15,6 +15,12 @@ func TestIdentifyCard(t *testing.T) {
 		t.Fatalf("Failed to find slash in %v\n", result.Note)
 	}
 
+	r.Action = "nonsense"
+	_, err := IdentifyCard(r)
+	if err == nil {
+		t.Fatalf("Should have thrown error")
+	}
+
 }
 
 func TestBuildMap(t *testing.T) {
@@ -42,5 +48,21 @@ func TestInsertTimeStamp(t *testing.T) {
 	}
 	createdAt := resultFind["CreatedAt"].(time.Time)
 	t.Log(createdAt)
+
+}
+
+func TestErrors(t *testing.T) {
+	tmp := FILEBASE_TOKEN
+	FILEBASE_TOKEN = "junk.json"
+	r := testing_graphql.MockResponse("created")
+	result, _ := IdentifyCard(r)
+	result.NoteID = "A_test_CARD"
+	InsertCardIntoFB(result)
+	_, err := GetCardInfo("A_test_CARD")
+	if err == nil {
+		t.Fatalf("Should have errored")
+	}
+
+	FILEBASE_TOKEN = tmp
 
 }

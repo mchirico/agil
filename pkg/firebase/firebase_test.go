@@ -83,4 +83,9 @@ func TestLocateFile(t *testing.T) {
 func TestFindCredentials(t *testing.T) {
 	loc, err := FindCredentials()
 	t.Logf("loc: %s, err: %v\n", loc, err)
+
+	_, err = FindCredentials("a", "b", "c", "d", "e", "f")
+	if err == nil {
+		t.Fatalf("err should have value")
+	}
 }

@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 )
 
+var FILEBASE_TOKEN = "septapig-firebase-adminsdk.json"
+
 func LocateFile(locations []string) (string, error) {
 
 	for _, file := range locations {
@@ -16,15 +18,24 @@ func LocateFile(locations []string) (string, error) {
 	return "", errors.New("Fire not found")
 }
 
-func FindCredentials() (string, error) {
+func FindCredentials(dirs ...string) (string, error) {
 	directories := []string{"/credentials",
 		"../../credentials",
 		"../credentials",
 		"../../../credentials",
 		"/etc/credentials",
 	}
+
+	for i, dir := range dirs {
+		if len(directories) > i {
+			directories[i] = dir
+		} else {
+			directories = append(directories, dir)
+		}
+	}
+
 	locations := []string{}
-	file := "septapig-firebase-adminsdk.json"
+	file := FILEBASE_TOKEN
 	for _, d := range directories {
 		locations = append(locations, d+"/"+file)
 	}
