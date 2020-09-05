@@ -20,6 +20,9 @@ type StatData struct {
 
 // Ref: https://github.com/mchirico/agil/issues/2
 
+var PROJECTCARDID = "MDExOlByb2plY3RDYXJkNDQ2MDU0MzU="
+
+
 func MutateCard(status string,
 	projectCardID string, options ...func(*qtypes.GH4) error) {
 
@@ -154,7 +157,7 @@ func TimeStampIT() error {
 	q := QueryGraphQL()
 
 	r := TotalCardsToday(q)
-	projectCardID := "MDExOlByb2plY3RDYXJkNDQ2MDU0MzU="
+	projectCardID := PROJECTCARDID
 
 	loc, _ := time.LoadLocation("America/New_York")
 	msg := fmt.Sprintf("\nUpdated:\n %s\n\n", time.Now().In(loc).Format("01-02 15:04:05 pm"))

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/mchirico/agil/pkg/graphQL"
 	"github.com/mchirico/agil/pkg/http/handles/github"
+	"github.com/mchirico/agil/pkg/tracking"
 	"github.com/mchirico/agil/pkg/utils"
 	"log"
 	"os"
@@ -26,6 +27,7 @@ func GithubActions() github.GithubData {
 			log.Printf("\nCard Created:\nNode: %v\n",
 				projectCardUpdate.ProjectCard.Note)
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
+			tracking.TrackCreateMoved(projectCardUpdate)
 		}
 
 		if projectCardUpdate.Action == "edited" {
@@ -36,6 +38,7 @@ func GithubActions() github.GithubData {
 		if projectCardUpdate.Action == "moved" {
 			log.Printf("\nCard Moved:\nNode: %v\n, From: %v\n",
 				projectCardUpdate.ProjectCard.Note, projectCardUpdate.Changes.ColumnID.From)
+			tracking.TrackCreateMoved(projectCardUpdate)
 		}
 
 	})
