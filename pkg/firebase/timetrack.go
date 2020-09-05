@@ -136,6 +136,7 @@ func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 	}
 
 	toupdate, err := fb.ReadMap(ctx, "Agil", noteID)
+
 	um := _updateMainCard(toupdate, m)
 
 	fb.WriteMap(ctx, um, "Agil", noteID)
