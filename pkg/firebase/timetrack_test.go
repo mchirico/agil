@@ -62,6 +62,38 @@ func TestInsertTimeStamp(t *testing.T) {
 	t.Log(m)
 }
 
+func TestUpdateTimeStamp(t *testing.T) {
+	r := testing_graphql.MockResponse("moved")
+	result, _ := IdentifyCard(r)
+	result.NoteID = "A_test_CARD"
+	result.Updates = buildmap()
+	InsertUpdateCardIntoFB(result)
+	resultFind, err := GetCardInfo("A_test_CARD")
+	if err != nil {
+		t.Fatalf("TestInsertTimeStamp")
+	}
+	createdAt := resultFind["CreatedAt"].(time.Time)
+	t.Log(createdAt)
+	m := resultFind["Updates"].(map[string]interface{})
+	t.Log(m)
+}
+
+func TestUpdateTimeStamp_edited(t *testing.T) {
+	r := testing_graphql.MockResponse("edited")
+	result, _ := IdentifyCard(r)
+	result.NoteID = "A_test_CARD"
+	result.Updates = buildmap()
+	InsertUpdateCardIntoFB(result)
+	resultFind, err := GetCardInfo("A_test_CARD")
+	if err != nil {
+		t.Fatalf("TestInsertTimeStamp")
+	}
+	createdAt := resultFind["CreatedAt"].(time.Time)
+	t.Log(createdAt)
+	m := resultFind["Updates"].(map[string]interface{})
+	t.Log(m)
+}
+
 func TestErrors(t *testing.T) {
 	tmp := FILEBASE_TOKEN
 	FILEBASE_TOKEN = "junk.json"

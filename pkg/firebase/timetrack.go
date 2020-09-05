@@ -14,6 +14,7 @@ type FBTimeStamp struct {
 	Note            string
 	NoteID          string
 	Action          string
+	Changes         int
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
 	Updates         map[string]interface{}
@@ -27,6 +28,7 @@ func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
 			r.ProjectCard.Note,
 			r.ProjectCard.NodeID,
 			r.Action,
+			r.Changes.ColumnID.From,
 			r.ProjectCard.CreatedAt,
 			r.ProjectCard.UpdatedAt,
 			map[string]interface{}{},
@@ -61,6 +63,7 @@ func BuildMap(fbt *FBTimeStamp) (map[string]interface{}, error) {
 	m["UpdatedAt"] = fbt.UpdatedAt
 	m["CreatedAt"] = fbt.CreatedAt
 	m["Action"] = fbt.Action
+	m["Changes"] = fbt.Changes
 	m["Updates"] = fbt.Updates
 	if len(fbt.NoteID) == 0 {
 		return m, errors.New("No NoteID")
@@ -107,6 +110,19 @@ func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 		return
 	}
 
+	toupdate, err := fb.ReadMap(ctx, "Agil", noteID)
+	um := toupdate.Data()
+
+	uUpdates := um["Updates"].(map[string]interface{})
+	timeStamp := updated.String()
+	uUpdates[timeStamp] = action
+
+	um["Note"] = m["Note"]
+	um["UpdatedAt"] = m["UpdatedAt"]
+	um["Action"] = m["Action"]
+	um["Changes"] = m["Changes"]
+
+	fb.WriteMap(ctx, um, "Agil", noteID)
 	fb.WriteMapCol2Doc2(ctx, m, "Agil", noteID, updated.String(), action)
 
 }
