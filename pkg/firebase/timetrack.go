@@ -15,6 +15,7 @@ type FBTimeStamp struct {
 	Action          string
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
+	Updates         map[string]interface{}
 	FirebaseUpdated bool
 }
 
@@ -27,6 +28,7 @@ func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
 			r.Action,
 			r.ProjectCard.CreatedAt,
 			r.ProjectCard.UpdatedAt,
+			map[string]interface{}{},
 			false,
 		}
 		return fbt, nil
@@ -58,6 +60,7 @@ func BuildMap(fbt *FBTimeStamp) (map[string]interface{}, error) {
 	m["UpdatedAt"] = fbt.UpdatedAt
 	m["CreatedAt"] = fbt.CreatedAt
 	m["Action"] = fbt.Action
+	m["Updates"] = fbt.Updates
 	if len(fbt.NoteID) == 0 {
 		return m, errors.New("No NoteID")
 	}

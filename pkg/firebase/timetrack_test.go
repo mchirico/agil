@@ -37,10 +37,20 @@ func TestBuildMap(t *testing.T) {
 
 }
 
+func buildmap() map[string]interface{} {
+	m := map[string]interface{}{}
+	t := time.Now().String()
+	mm := map[string]string{}
+	mm["a"] = "ok"
+	m[t] = mm
+	return m
+}
+
 func TestInsertTimeStamp(t *testing.T) {
 	r := testing_graphql.MockResponse("created")
 	result, _ := IdentifyCard(r)
 	result.NoteID = "A_test_CARD"
+	result.Updates = buildmap()
 	InsertCardIntoFB(result)
 	resultFind, err := GetCardInfo("A_test_CARD")
 	if err != nil {
@@ -48,7 +58,8 @@ func TestInsertTimeStamp(t *testing.T) {
 	}
 	createdAt := resultFind["CreatedAt"].(time.Time)
 	t.Log(createdAt)
-
+	m := resultFind["Updates"].(map[string]interface{})
+	t.Log(m)
 }
 
 func TestErrors(t *testing.T) {
