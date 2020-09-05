@@ -77,3 +77,22 @@ func Test_RootPUT(t *testing.T) {
 	}
 
 }
+
+func Test_RootPOST(t *testing.T) {
+	req := httptest.NewRequest("POST", "/", nil)
+	w := httptest.NewRecorder()
+	BaseRoot(w, req)
+
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+
+	fmt.Println(resp.StatusCode)
+	fmt.Println(resp.Header.Get("Content-Type"))
+	fmt.Println(string(body))
+
+	if string(body) != "post" {
+		t.Log(string(body))
+		t.Fatalf("post response not what expected")
+	}
+
+}
