@@ -22,7 +22,6 @@ type StatData struct {
 
 var PROJECTCARDID = "MDExOlByb2plY3RDYXJkNDQ2MDU0MzU="
 
-
 func MutateCard(status string,
 	projectCardID string, options ...func(*qtypes.GH4) error) {
 

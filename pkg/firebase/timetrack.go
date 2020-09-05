@@ -21,7 +21,7 @@ type FBTimeStamp struct {
 }
 
 func IdentifyCard(r utils.ProjectCardUpdate) (*FBTimeStamp, error) {
-	if r.Action == "created" || r.Action == "moved" || r.Action == "updated" {
+	if r.Action == "created" || r.Action == "moved" || r.Action == "edited" {
 
 		fbt := &FBTimeStamp{
 			r.ProjectCard.Note,
@@ -100,19 +100,16 @@ func InsertUpdateCardIntoFB(fbt *FBTimeStamp) {
 		return
 	}
 	noteID := m["NoteID"].(string)
-	updated := m["UpdatedAt"].(string)
+	updated := m["UpdatedAt"].(time.Time)
 	action := m["Action"].(string)
 
 	if noteID == graphQL.PROJECTCARDID {
 		return
 	}
 
-	fb.WriteMap(ctx, m, "Agil", noteID)
-	fb.WriteMapCol2Doc2(ctx,m,"Agil",noteID,updated,action)
+	fb.WriteMapCol2Doc2(ctx, m, "Agil", noteID, updated.String(), action)
 
 }
-
-
 
 func GetCardInfo(nodeID string) (map[string]interface{}, error) {
 
