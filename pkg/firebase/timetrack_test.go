@@ -78,6 +78,28 @@ func TestUpdateTimeStamp(t *testing.T) {
 	t.Log(m)
 }
 
+func Test_Note_in_FB(t *testing.T) {
+	r := testing_graphql.MockResponse("moved")
+	result, _ := IdentifyCard(r)
+	note := `Note:
+
+With returns
+`
+	result.Note = note
+	result.NoteID = "A_test_CARD"
+	result.Updates = buildmap()
+	InsertUpdateCardIntoFB(result)
+	resultFind, err := GetCardInfo("A_test_CARD")
+	if err != nil {
+		t.Fatalf("Test_Note_in_FB: %v\n", err)
+	}
+	x := resultFind["Note"].(string)
+	if x != note {
+		t.Fatalf("Got: ->%v<-\nExpected: ->%v<-\n", x, note)
+	}
+
+}
+
 func TestUpdateTimeStamp_edited(t *testing.T) {
 	r := testing_graphql.MockResponse("edited")
 	result, _ := IdentifyCard(r)
