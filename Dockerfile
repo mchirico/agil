@@ -24,7 +24,8 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -tags timetzda
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /
 COPY --from=builder /workspace/project .
-COPY --from=builder /workspace/credentials /credentials
+
+COPY --from=builder --chown=nonroot:nonroot /workspace/credentials /credentials
 USER nonroot:nonroot
 
 ARG buildtime_variable
