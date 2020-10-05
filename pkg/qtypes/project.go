@@ -50,7 +50,7 @@ type Q struct {
 						}
 
 						TotalCount int
-					} `graphql:"columns(last: 10)"`
+					} `graphql:"columns(last: 100)"`
 				}
 			}
 		} `graphql:"projects(last: 1)"`
