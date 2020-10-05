@@ -45,7 +45,7 @@ type Q struct {
 											}
 										}
 									}
-								} `graphql:"cards(first: 100)"`
+								} `graphql:"cards(first: 100, archivedStates:NOT_ARCHIVED)"`
 							}
 						}
 
