@@ -28,6 +28,7 @@ func GithubActions() github.GithubData {
 				projectCardUpdate.ProjectCard.Note)
 			graphQL.OnUpdateDoCMD(projectCardUpdate, graphQL.MutateCard)
 			tracking.TrackCreate(projectCardUpdate)
+			graphQL.TimeStampIT()
 		}
 
 		if projectCardUpdate.Action == "edited" {
@@ -40,6 +41,7 @@ func GithubActions() github.GithubData {
 			log.Printf("\nCard Moved:\nNode: %v\n, From: %v\n",
 				projectCardUpdate.ProjectCard.Note, projectCardUpdate.Changes.ColumnID.From)
 			tracking.TrackUpdate(projectCardUpdate)
+			graphQL.TimeStampIT()
 		}
 
 	})

@@ -48,3 +48,7 @@ func Test_QueryGraphQL(t *testing.T) {
 	}
 
 }
+
+func TestTimeStampIT(t *testing.T) {
+	TimeStampIT()
+}
