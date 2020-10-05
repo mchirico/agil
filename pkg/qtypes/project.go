@@ -45,12 +45,12 @@ type Q struct {
 											}
 										}
 									}
-								} `graphql:"cards(last: 100)"`
+								} `graphql:"cards(first: 100)"`
 							}
 						}
 
 						TotalCount int
-					} `graphql:"columns(last: 100)"`
+					} `graphql:"columns(first: 15)"`
 				}
 			}
 		} `graphql:"projects(last: 1)"`
