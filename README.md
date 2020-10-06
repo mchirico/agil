@@ -7,8 +7,8 @@
 
 - A Adaptation
 - G Goal Attainment
-- I Integration
-- L Latency
+- I integrity
+- L Long-term
 
 My experiment of Github's GraphQL to track my daily progress. Both a technical and psychological experiment.
 
