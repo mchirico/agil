@@ -166,7 +166,7 @@ func TimeStampIT() error {
 		}
 
 	}
-	msg += "\n Results include archived cards." +
+	msg += "\n Results DO NOT include archived cards." +
 		"\nShowing changes in the last 12 hours."
 
 	MutateCard(msg, projectCardID)
